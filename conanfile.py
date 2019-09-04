@@ -8,7 +8,7 @@ import os
 
 class AZMQConan(ConanFile):
     name = "azmq"
-    version = "1.0.2"
+    version = "1.0.3"
     url = "https://github.com/bincrafters/conan-azmq"
     homepage = "https://github.com/zeromq/azmq"
     description = "C++ language binding library integrating ZeroMQ with Boost Asio"
@@ -20,15 +20,24 @@ class AZMQConan(ConanFile):
     source_subfolder = "source_subfolder"
     build_subfolder = "build_subfolder"
 
+
+    scm = {
+         "type": "git",
+         "subfolder": source_subfolder,
+         "url": "https://github.com/zeromq/azmq.git",
+         "revision": "6bb101eecb357ad9735ebc36e276b7526652d42d"
+      }
+
     def requirements(self):
         self.requires.add('zmq/4.3.2@camposs/stable')
         self.requires.add('Boost/1.70.0@camposs/stable')
 
-    def source(self):
-        source_url = "https://github.com/zeromq/azmq"
-        tools.get("{0}/archive/v{1}.tar.gz".format(source_url, self.version))
-        extracted_dir = self.name + "-" + self.version
-        os.rename(extracted_dir, self.source_subfolder)
+    def _configure_cmake(self):
+        cmake = CMake(self)
+        cmake.configure(build_folder=self.build_subfolder)
+        return cmake
+                              
+    def build(self):
 
         # ensure our FindBoost.cmake is being used
         tools.replace_in_file(os.path.join(self.source_subfolder, 'CMakeLists.txt'),
@@ -42,13 +51,7 @@ class AZMQConan(ConanFile):
         tools.replace_in_file(os.path.join(self.source_subfolder, 'CMakeLists.txt'),
                               'add_subdirectory(doc)',
                               '#add_subdirectory(doc)')
-    
-    def _configure_cmake(self):
-        cmake = CMake(self)
-        cmake.configure(build_folder=self.build_subfolder)
-        return cmake
-                              
-    def build(self):
+
         cmake = self._configure_cmake()
         cmake.build()
 
