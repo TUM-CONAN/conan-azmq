@@ -21,17 +21,8 @@ class AZMQConan(ConanFile):
     build_subfolder = "build_subfolder"
 
     def requirements(self):
-        self.requires.add('zmq/4.2.2@bincrafters/stable')
-        self.requires.add('boost_system/1.66.0@bincrafters/stable')
-        self.requires.add('boost_log/1.66.0@bincrafters/stable')
-        self.requires.add('boost_date_time/1.66.0@bincrafters/stable')
-        self.requires.add('boost_thread/1.66.0@bincrafters/stable')
-        self.requires.add('boost_chrono/1.66.0@bincrafters/stable')
-        self.requires.add('boost_regex/1.66.0@bincrafters/stable')
-        self.requires.add('boost_random/1.66.0@bincrafters/stable')
-        self.requires.add('boost_asio/1.66.0@bincrafters/stable')
-        self.requires.add('boost_logic/1.66.0@bincrafters/stable')
-        self.requires.add("cmake_findboost_modular/1.66.0@bincrafters/stable")
+        self.requires.add('zmq/4.3.2@camposs/stable')
+        self.requires.add('Boost/1.70.0@camposs/stable')
 
     def source(self):
         source_url = "https://github.com/zeromq/azmq"
