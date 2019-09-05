@@ -34,6 +34,8 @@ class AZMQConan(ConanFile):
 
     def _configure_cmake(self):
         cmake = CMake(self)
+        if self.options["Boost"].shared == True:
+          cmake.definitions["Boost_USE_STATIC_LIBS"] = 'OFF'
         cmake.configure(build_folder=self.build_subfolder)
         return cmake
                               
