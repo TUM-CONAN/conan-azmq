@@ -5,8 +5,7 @@
 from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout, CMakeDeps
 from conan.tools.scm import Git
-from conan.tools.files import load, update_conandata, copy, collect_libs, replace_in_file
-from conan.tools.microsoft.visual import check_min_vs
+from conan.tools.files import load, update_conandata, copy, replace_in_file
 import os
 
 
